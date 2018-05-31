@@ -6,7 +6,9 @@ Created on 29 mai 2018
 import tkinter as tk
 from tkinter import Canvas
 from tkinter import ttk
+from tkinter.messagebox import *
 from tkinter.constants import HORIZONTAL, VERTICAL
+from gc import callbacks
 
 
 class Application(tk.Frame):              
@@ -14,6 +16,7 @@ class Application(tk.Frame):
         tk.Frame.__init__(self, master)
         self.paned = self.createWindowPanel()
         self.draw
+        self.prodBtn
         self.pack()
        
     
@@ -88,7 +91,15 @@ class Application(tk.Frame):
         self.button = tk.Button(self, text=text,
             command=self.createList)            
         self.button.pack()
-        
+    
+    def callback(self):
+        if askyesno('Titre 1', 'Êtes-vous sûr de vouloir faire ça?'):
+            showwarning('Titre 2', 'Tant pis...')
+        else:
+            showinfo('Titre 3', 'Vous avez peur!')
+            showerror("Titre 4", "Aha")
+
+    
     def createList(self, daddy):
         self.list = tk.Listbox(daddy);
         self.list.insert(tk.END, "coucou")
@@ -112,12 +123,21 @@ class Application(tk.Frame):
         self.createList(pageProduitFini)
         tk.Label(pageProduitFini, text="Quantité").pack(pady=5)
         tk.Entry(pageProduitFini, text='Qte').pack()
-        tk.Button(pageProduitFini, text='Produire').pack(pady=5)
-         
+        self.prodBtn = tk.Button(pageProduitFini, text='Produire', command=self.callback)
+        self.prodBtn.pack(pady=5)
+        self.prodBtn.bind("<Enter>", self.turnRed)
+        
         pageStock = ttk.Frame(nb)
         nb.add(pageStock, text='Stock')
         self.createList(pageStock)
+    
+    def turnRed(self, event):
+        event.widget["activeforeground"] = "red"
         
+    
+  
+
+    
 app = Application()                       
 app.master.title('Cellude de production flexible')
 app.master.geometry('800x600')
