@@ -5,6 +5,7 @@ Created on 29 mai 2018
 '''
 import tkinter as tk
 from tkinter import Canvas
+from tkinter import ttk
 from tkinter.constants import HORIZONTAL, VERTICAL
 
 
@@ -12,6 +13,7 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
         self.paned = self.createWindowPanel()
+        self.draw
         self.pack()
        
     
@@ -23,13 +25,11 @@ class Application(tk.Frame):
         #Créer le panneau avec les options
         settingLabelFrame = tk.LabelFrame(paneWindow, text="Options",  padx=0, pady=0)
         settingLabelFrame.pack(fill=tk.BOTH, expand="yes")
-        tk.Label(settingLabelFrame, text="Produit Fini").pack()
-        self.createList(settingLabelFrame)
+        self.createNoteBook(settingLabelFrame)
 
         #Créer le panneau avec les vues
         cellulesLabelFrame = tk.LabelFrame(paneWindow, text="Cellule",  padx=0, pady=0)
         cellulesLabelFrame.pack(fill=tk.BOTH, expand="yes")
-        tk.Label(cellulesLabelFrame, text="Production").pack()
         self.createScrollableCanvas(daddy=cellulesLabelFrame)
         
         paneWindow.add(cellulesLabelFrame)
@@ -78,8 +78,7 @@ class Application(tk.Frame):
         menubar.add_cascade(label="Aide", menu=menu3)
         
         return menubar
-
-        
+       
     def createQuitButton(self):
         self.quitButton = tk.Button(self, text='Quit',
                                     command=self.quit)            
@@ -97,9 +96,30 @@ class Application(tk.Frame):
         self.list.insert(tk.END, "coucou")
         self.list.insert(tk.END, "coucou")
         self.list.pack()
+    
+    def createNoteBook(self,daddy):
+        # Defines and places the notebook widget
+        nb = tk.ttk.Notebook(daddy)
+        nb.pack(anchor=tk.N)
+        
+        
+        pageProduitFini = ttk.Frame(nb)
+        pageProduitFini.pack(expand=tk.Y,pady=20)
+        nb.add(pageProduitFini, text='ProduitFini')
+        tk.Label(pageProduitFini, text="Choisissez un produit fini").pack(pady=5)
+        self.createList(pageProduitFini)
+        tk.Label(pageProduitFini, text="Recette").pack(pady=5)
+        self.createList(pageProduitFini)
+        tk.Label(pageProduitFini, text="Quantité").pack(pady=5)
+        tk.Entry(pageProduitFini, text='Qte').pack()
+        tk.Button(pageProduitFini, text='Produire').pack(pady=5)
+         
+        pageStock = ttk.Frame(nb)
+        nb.add(pageStock, text='Stock')
+        self.createList(pageStock)
         
 app = Application()                       
-app.master.title('Machina')
+app.master.title('Cellude de production flexible')
 app.master.geometry('800x600')
 app.master.config(menu=app.createMenuBar())
 app.mainloop()
