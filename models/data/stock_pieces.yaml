@@ -1,0 +1,13 @@
+Store:
+    Piece:
+        PieceName:
+            quantite: 5
+            
+            
+            
+            
+    Machin:
+        MachinName:
+            action: 'Limer'
+        
+  
