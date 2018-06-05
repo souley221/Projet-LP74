@@ -1,13 +1,15 @@
 Store:
-    Piece:
-        PieceName:
-            quantite: 5
-            
-            
-            
-            
-    Machin:
-        MachinName:
-            action: 'Limer'
-        
-  
+  Bielle:
+    quantite: 2
+  CageDeRoulement:
+    quantite: 3
+  CarterDePompe:
+    quantite: 2
+  Courroie:
+    quantite: 1
+  Ecrou:
+    quantite: 80
+  Goupille:
+    quantite: 4
+  VIDE:
+    quantite: 40  
