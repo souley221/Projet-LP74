@@ -22,7 +22,7 @@ class TestStock(unittest.TestCase):
         print('This store path:', self.store_file_path)
         self.piece_data = self.iStock.load_yaml(os.path.join(self.store_file_path,'stock_pieces.yaml'))
         self.machine_data = self.iStock.load_yaml(os.path.join(self.store_file_path,'stock_machines.yaml'))
-
+    
     def test_loadyaml(self):
         '''Test load yaml file
         '''
